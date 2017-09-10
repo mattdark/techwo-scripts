@@ -1,0 +1,11 @@
+# CairoSVG is a library used to convert SVG files to PDF and PNG
+cairosvg
+
+# xlrd is a library for developers to extract data from Microsoft Excel (tm) spreadsheet files
+xlrd
+
+# lxml is a library for processing XML and HTML in the Python language
+lxml
+
+# PyPDF2 is a pure-python PDF library capable of splitting, merging together, cropping, and transforming the pages of PDF files.
+pyPDF2
