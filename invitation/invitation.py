@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from lxml import etree
+import xlrd
 import cairosvg
 import json
 from dates import dates
@@ -23,7 +24,7 @@ find_fecha4 = etree.ETXPath("//{%s}tspan[@id='tspan882']" % (SVGNS))
 
 ds = dates()
 
-with open('./speakers/speakers.json') as data_file:
+with open('../speakers/speakers.json') as data_file:
     data = json.load(data_file)
 
 for i in range(2):
@@ -37,9 +38,9 @@ for i in range(2):
     find_fecha3(xml_data)[0].text = ds[2]
     find_fecha4(xml_data)[0].text = ds[3]
     new_svg = etree.tostring(xml_data).decode('utf-8')
-    svg_file = './speakers/' + id + '.svg'
+    svg_file = './invitations/' + id + '.svg'
     f = open(svg_file, 'w+')
     f.write(new_svg)
     f.close()
-    pdf_file = './speakers/' + id + '.pdf'
+    pdf_file = './invitations/' + id + '.pdf'
     cairosvg.svg2pdf(url=svg_file, write_to=pdf_file)

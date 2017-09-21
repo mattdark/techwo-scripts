@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from lxml import etree
+import xlrd
 import cairosvg
 import json
 from PyPDF2 import PdfFileMerger
@@ -17,7 +18,7 @@ find_text = etree.ETXPath("//{%s}tspan[@id='tspan3951']" % (SVGNS))
 
 merger = PdfFileMerger()
 
-with open('./speakers/speakers.json') as data_file:
+with open('../speakers/speakers.json') as data_file:
     data = json.load(data_file)
 
 for i in range(2):
@@ -25,11 +26,11 @@ for i in range(2):
     name = data["speakers"][i]["name"]
     find_text(xml_data)[0].text = name
     new_svg = etree.tostring(xml_data).decode('utf-8')
-    svg_file = './speakers/' + id + '.svg'
+    svg_file = './certificates/' + id + '.svg'
     f = open(svg_file, 'w+')
     f.write(new_svg)
     f.close()
-    pdf_file = './speakers/' + id + '.pdf'
+    pdf_file = './certificates/' + id + '.pdf'
     cairosvg.svg2pdf(url=svg_file, write_to=pdf_file)
     merger.append(open(pdf_file, 'rb'))
 
