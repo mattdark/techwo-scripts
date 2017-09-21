@@ -1,0 +1,2 @@
+fromaddr = "EMAIL"
+password = "PASS"
