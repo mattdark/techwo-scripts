@@ -3,12 +3,13 @@
 from lxml import etree
 import xlrd
 import cairosvg
+import json
 from dates import dates
 
 SVGNS = u"http://www.w3.org/2000/svg"
 
-with open('./format/invitation.svg', 'r') as mysvg:
-    svg = mysvg.read() #.replace('\n', '')
+with open('../assets/invitation.svg', 'r') as mysvg:
+    svg = mysvg.read()
 
 utf8_parser = etree.XMLParser(encoding='utf-8')
 
@@ -23,17 +24,13 @@ find_fecha4 = etree.ETXPath("//{%s}tspan[@id='tspan882']" % (SVGNS))
 
 ds = dates()
 
-workbook = xlrd.open_workbook('./speakers/speakers.xls')
-worksheet = workbook.sheet_by_name('Speakers')
+with open('./speakers/speakers.json') as data_file:
+    data = json.load(data_file)
 
-for x in range(1,3,1):
-    id = str(int(worksheet.cell(x,0).value))
-    name = ''
-    for y in range(1,4,1):
-        name += worksheet.cell(x, y).value
-        name += ' '
-    name.rstrip()
-    org = worksheet.cell(x,4).value
+for i in range(2):
+    id = data["speakers"][i]["id"]
+    name = data["speakers"][i]["name"]
+    org = data["speakers"][i]["org"]
     find_name(xml_data)[0].text = name
     find_org(xml_data)[0].text = org
     find_fecha1(xml_data)[0].text = ds[0]
